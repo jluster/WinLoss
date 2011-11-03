@@ -1,6 +1,6 @@
 ## Interface: 40200
 ## Title: Wins and Losses
-## Description: Tracks wins and losses in BGs
+## Notes: Tracks wins and losses in BGs
 ## SavedVariables: WinLossDB
 
 WinLoss.lua
