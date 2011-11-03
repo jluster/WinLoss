@@ -41,3 +41,16 @@ function wl:UPDATE_BATTLEFIELD_STATUS()
     end
   end
 end
+
+SLASH_WINLOSS1 = "/winloss";
+SlashCmdList["WINLOSS"] = function(msg)
+  local command, rest = msg:match("^(%S*)%s*(.-)$")
+  if command == "help" then
+    DEFAULT_CHAT_FRAME:AddMessage("---] Collects wins and losses");
+    DEFAULT_CHAT_FRAME:AddMessage("---] Type /winloss clear to clean database. All collected data will be cleared.");
+  elseif command == "clear" then
+    WinLossDB = {}
+  elseif command == "data" then
+    DEFAULT_CHAT_FRAME:AddMessage("Fancy data visualizations coming soon");
+  end
+end
