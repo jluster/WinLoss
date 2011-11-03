@@ -19,7 +19,7 @@ function wl:ADDON_LOADED()
   if WinLossDB == nil then WinLossDB = {} end
 end
 
-function wl:UPDATE_BATTLEFIELD_STATUS(...)
+fnction wl:UPDATE_BATTLEFIELD_STATUS(...)
   -- DEFAULT_CHAT_FRAME:AddMessage("Update BG");
   local winner = GetBattlefieldWinner();
   if winner then
@@ -29,7 +29,12 @@ function wl:UPDATE_BATTLEFIELD_STATUS(...)
     local s = GetNumBattlefieldScores();
     local zoneName = GetZoneText();
     if currentBGsaved == 0 then
+      -- Apparently sometimes zone changes aren't triggered
+      -- so we'll also discount any new win within 5 minutes after the last
+      -- *sigh*
+      if d <= savetime - 300 then return end 
       WinLossDB[d..":"..uname] = winner..":"..u..":"..s..":"..zoneName;
+      savetime = d
       currentBGsaved = 1
     end
     DEFAULT_CHAT_FRAME:AddMessage(winner..":"..u..":"..s..":"..zoneName);
