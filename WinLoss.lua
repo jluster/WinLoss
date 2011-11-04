@@ -6,13 +6,12 @@ wl:RegisterEvent('ADDON_LOADED')
 wl:RegisterEvent('WORLD_MAP_UPDATE')
 
 wl.currentBGsaved = 0 -- to avoid multiple saves while UPDATE_BATTLEFIELD_STATUS fires as we stare at score
-local uname,urealm = UnitName("player")
+local uname,_ = UnitName("player")
 
 function wl:WORLD_MAP_UPDATE()
   -- we can reasonably assume that the player has left the game or entered and new one and left
   -- the zone-in area (doesn't fire until you leave WSG hold, for example).
   self.currentBGsaved = 0
-  wl:Debug("Now BGSaved is Zero");
 end
 
 function wl:ADDON_LOADED()
@@ -31,9 +30,7 @@ function wl:UPDATE_BATTLEFIELD_STATUS()
     local zoneName = GetZoneText();
     wl:Debug("BG Saved is now: "..self.currentBGsaved);
     if self.currentBGsaved == 0 then
-      -- Apparently sometimes zone changes aren't triggered so we'll also discount 
-      -- any new win within 5 minutes after the last *sigh*
-      WinLossDB[d] = winner..":"..u..":"..s..":"..zoneName..":"..uname..":"..urealm;
+      WinLossDB[d] = winner..":"..u..":"..s..":"..zoneName..":"..uname;
       self.currentBGsaved = 1
       wl:Debug("Now BGSaved is One");
     end
